@@ -7,8 +7,7 @@ import { copy } from "@/lib/copy";
 const { finalCta } = copy;
 
 // TODO: replace with real checkout URLs before deploying
-const BASE_CHECKOUT_URL_1 = "https://www.oriopay.app/p/mancaruri-cu-proteine";
-const BASE_CHECKOUT_URL_2 = "https://www.oriopay.app/p/mancaruri-cu-proteine";
+const BASE_CHECKOUT_URL = "https://www.oriopay.app/p/mancaruri-cu-proteine";
 
 function buildCheckoutUrl(baseUrl) {
   try {
@@ -28,16 +27,10 @@ function buildCheckoutUrl(baseUrl) {
 }
 
 export default function FinalCta() {
-  const [checkoutUrls, setCheckoutUrls] = useState([
-    BASE_CHECKOUT_URL_1,
-    BASE_CHECKOUT_URL_2,
-  ]);
+  const [checkoutUrl, setCheckoutUrl] = useState(BASE_CHECKOUT_URL);
 
   useEffect(() => {
-    setCheckoutUrls([
-      buildCheckoutUrl(BASE_CHECKOUT_URL_1),
-      buildCheckoutUrl(BASE_CHECKOUT_URL_2),
-    ]);
+    setCheckoutUrl(buildCheckoutUrl(BASE_CHECKOUT_URL));
   }, []);
 
   function handleBeginCheckout() {
@@ -87,8 +80,8 @@ export default function FinalCta() {
           />
         </div>
 
-        {/* Two pricing cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* SINGLE pricing card - Centered */}
+        <div className="grid grid-cols-1 max-w-md mx-auto gap-6">
           {finalCta.packages.map((pkg, idx) => (
             <div
               key={idx}
@@ -154,7 +147,7 @@ export default function FinalCta() {
 
                 {/* CTA button */}
                 <a
-                  href={checkoutUrls[idx]}
+                  href={checkoutUrl}
                   onClick={handleBeginCheckout}
                   className="animate-pulse-glow block w-full bg-[#8cbc36] hover:bg-[#6e9628] text-white font-black text-base py-4 rounded-2xl text-center transition-all duration-200 hover:scale-[1.02] shadow-xl shadow-[#8cbc36]/30 tracking-wide"
                 >
